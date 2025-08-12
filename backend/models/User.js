@@ -29,7 +29,7 @@ const userSchema = new Schema(
         {
           validator: (value) => isStrongPassword(value),
           message:
-            "Posword must contain on ot more alpanpmeric charactar ans symbol",
+            "Password must contain one or more alpanpmeric charactar ans symbol",
         },
       ],
     },
