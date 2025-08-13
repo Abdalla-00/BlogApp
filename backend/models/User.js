@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import validator, { isStrongPassword } from "validator";
+import validator from "validator";
 import bcrypt from "bcrypt";
 
 const { Schema } = mongoose;
@@ -27,7 +27,7 @@ const userSchema = new Schema(
       select: false,
       validator: [
         {
-          validator: (value) => isStrongPassword(value),
+          validator: value => isStrongPassword(value),
           message:
             "Password must contain one or more alpanpmeric charactar ans symbol",
         },
@@ -39,7 +39,7 @@ const userSchema = new Schema(
   }
 );
   
-// start middleware
+// start middleware  password appears or disappear  it take true and false 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
