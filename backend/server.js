@@ -9,7 +9,7 @@ const PORT = 4545;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("hello");
+  res.send("hellow,word");
 });
 app.post("/registerUser", registerUser);
 connectDB();
