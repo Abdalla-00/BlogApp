@@ -8,15 +8,15 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
-      lowarcase: true,
-      require: true,
-      uniqued: true,
-      validator: [validator.isEmail, "please enter a valid email"],
+      lowercase: true,
+      required: true,
+      unique: true,
+      validate: [validator.isEmail, "please enter a valid email"],
     },
 
     username: {
       type: String,
-      lowarcase: true,
+      lowercase: true,
       unique: true,
       required: true,
     },
@@ -25,11 +25,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
       select: false,
-      validator: [
+      validate: [
         {
-          validator: value => isStrongPassword(value),
+          validator: value => validator.isStrongPassword(value),
           message:
-            "Password must contain one or more alpanpmeric charactar ans symbol",
+            "Password must contain   one more alphanumetric character and symbols",
         },
       ],
     },

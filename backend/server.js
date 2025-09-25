@@ -8,10 +8,8 @@ const app = express();
 const PORT = 4545;
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("hellow,word");
-});
-app.post("/registerUser", registerUser);
+
+app.post("/api/register-User", registerUser);
 connectDB();
 app.listen(PORT, () => {
   console.log(`${chalk.blue.bold("server is on")}: http://localhost:${PORT}`);
