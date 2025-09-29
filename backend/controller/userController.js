@@ -2,7 +2,7 @@ import User from "../models/User.js";
 
 export const registerUser = async (req, res) => {
   try {
-    const {email, username, password}=req.body
+    const { email, username, password } = req.body;
     // const email = req.body.email;
     // const username = req.body.username;
     // const password = req.body.password;
@@ -24,7 +24,9 @@ export const registerUser = async (req, res) => {
       email: email,
     });
     await userInfo.save();
+
     userInfo.password = undefined;
+
     return res.status(201).send(userInfo);
   } catch (err) {
     console.log("error at registerUser", err.message);

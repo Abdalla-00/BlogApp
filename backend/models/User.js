@@ -27,7 +27,7 @@ const userSchema = new Schema(
       select: false,
       validate: [
         {
-          validator: value => validator.isStrongPassword(value),
+          validator: (value) => validator.isStrongPassword(value),
           message:
             "Password must contain   one more alphanumetric character and symbols",
         },
@@ -38,14 +38,14 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
-  
-// start middleware  password appears or disappear  it take true and false 
+
+// start middleware  password appears or disappear  it take true and false
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
 
-//   hash Password
+  //   hash Password
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
@@ -56,7 +56,6 @@ userSchema.methods.comparePassword = async function (givenPassword) {
 };
 
 // end middleware
-
 
 // export
 const user = mongoose.model("User", userSchema);
