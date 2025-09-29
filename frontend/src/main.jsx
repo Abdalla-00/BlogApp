@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RegistarPage from "./page/registarPage";
 import LoginPage from "./page/LoginPage";
 import DashboardPage from "./page/DashboardPage";
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <Toaster/>
     <RouterProvider router={router} />
   </StrictMode>
 );

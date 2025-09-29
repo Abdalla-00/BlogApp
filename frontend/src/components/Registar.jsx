@@ -11,8 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Registar = () => {
   const [formData, setFormData] = useState({
@@ -22,6 +23,9 @@ const Registar = () => {
   });
 
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleInputChange = (event) => {
     console.log(event);
     setFormData({
@@ -33,10 +37,17 @@ const Registar = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setLoading(true);
+
     try {
       const { data } = await axios.post("/api/register-User", formData);
+      toast.success("success register");
       console.log(data);
+      setLoading(false);
+      navigate("/LoginPage")
     } catch (e) {
+      setLoading(false);
+      toast.error(e.response.data);
       console.error(e);
     }
   };
@@ -89,7 +100,7 @@ const Registar = () => {
                 </Link>
               </div>
 
-              <Button>Registar</Button>
+              <Button>{loading ? "Registaring..." : "Registar"}</Button>
             </div>
           </form>
         </CardContent>
