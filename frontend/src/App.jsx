@@ -1,12 +1,13 @@
 import { Outlet } from "react-router-dom";
+import HeaderPage from "./components/HeaderPage";
 
 
 
 function App() {
   return (
     <>
-      <h1 className="bg-amber-400 text-white text-center p-5">hello am apdala</h1>
-   
+      
+    <HeaderPage/>
       <Outlet/>
     </>
   );
