@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardAction,
@@ -14,6 +14,20 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
 const Registar = () => {
+  const [formData, setformData] = {
+    username: "",
+    email: "",
+    password: "",
+  };
+
+  const [loading, setLoading] = useState(false);
+  const handleInputChange = (event) => {
+    setformData({
+      ...formData,
+      [event.target.id]: event.target.value,
+    });
+  };
+
   return (
     <div className="w-full">
       <Card>
