@@ -1,3 +1,4 @@
+import { JWT_SECRET } from "../config/config.js";
 import user from "../models/User.js";
 import jwt from "jsonwebtoken";
 
@@ -58,9 +59,23 @@ export const loginUser = async (req, res) => {
 
     // token generation
     const expiresIn = 7 * 24 * 60 * 60;
-    const token = jwt.sign({_id:isUserExist.id})
+    const token = jwt.sign({ _id: isUserExist.id }, JWT_SECRET, {
+      expiresIn,
+    });
+    // end token
 
-    res.status(200).send("login success");
+    // cokis
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: expiresIn * 1000,
+    });
+
+    // end cokis
+
+    isUserExist.password = undefined;
+
+    res.status(200).send({...isUserExist.toJSON(),expiresIn});
   } catch (err) {
     console.log("there is error", err);
     res.send(err.message);
