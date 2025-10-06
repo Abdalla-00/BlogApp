@@ -1,5 +1,5 @@
 import user from "../models/User.js";
-import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
   try {
@@ -51,13 +51,16 @@ export const loginUser = async (req, res) => {
 
     //Check password
 
-    const isPasswordCorrect = await isUserExist.comparePassword(password)
-    if(!isPasswordCorrect){
-      return res.status(400).send("Incorrect password")
-
+    const isPasswordCorrect = await isUserExist.comparePassword(password);
+    if (!isPasswordCorrect) {
+      return res.status(400).send("Incorrect password");
     }
 
-    res.status(200).send("login success")
+    // token generation
+    const expiresIn = 7 * 24 * 60 * 60;
+    const token = jwt.sign({_id:isUserExist.id})
+
+    res.status(200).send("login success");
   } catch (err) {
     console.log("there is error", err);
     res.send(err.message);
