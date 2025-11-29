@@ -5,6 +5,12 @@ const UserContex = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("expirationTime");
+    setUser(null);
+  };
+
   useEffect(() => {
     const expirationTime = localStorage.getItem("expirationTime");
     const storedUser = localStorage.getItem("user");
@@ -13,7 +19,7 @@ export const UserProvider = ({ children }) => {
       const currentTime = new Date().getTime();
 
       if (currentTime < parseInt(expirationTime)) {
-        setUser(JSON.parse(storedUser))
+        setUser(JSON.parse(storedUser));
       }
     }
   }, []);
@@ -28,7 +34,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContex.Provider value={{ login, user, setUser }}>
+    <UserContex.Provider value={{ login, user, setUser, logout }}>
       {children}
     </UserContex.Provider>
   );

@@ -1,7 +1,10 @@
+import { useUser } from "@/hooks/useUser";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const HeaderPage = () => {
+
+  const {user,logout}=useUser();
   return (
     <>
       <header className="bg-gray-800 text-white flex justify-between  items-center p-6 cursor-pointer">
@@ -10,18 +13,18 @@ const HeaderPage = () => {
         </div>
         <nav>
           <ul className="flex space-x-4 ">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/Dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/registar">Registe</Link>r
-            </li>
-            <li>
-              <Link to="/LoginPage">Login</Link>
-            </li>
+            { user ?
+            <>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/Dashboard">Dashboard</Link></li>
+              <button onClick={()=>logout()}>Logout</button>
+            </>
+            :
+            <>
+              <li> <Link to="/registar">Registe</Link> </li>
+              <li><Link to="/LoginPage">Login</Link> </li>
+            </>
+              }
           </ul>
         </nav>
       </header>
