@@ -14,12 +14,16 @@ import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useUser } from "@/hooks/useUser";
 
 const Registar = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const UserInfo = useUser();
+  console.log("UserInfo",UserInfo)
 
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +47,7 @@ const Registar = () => {
       toast.success("success register");
       console.log(data);
       setLoading(false);
-      navigate("/")
+      // navigate("/")
     } catch (e) {
       setLoading(false);
       toast.error(e.response.data);
