@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
       const currentTime = new Date().getTime();
 
       if (currentTime < parseInt(expirationTime)) {
-        JSON.parse(storedUser)
+        setUser(JSON.parse(storedUser))
       }
     }
   }, []);
@@ -27,14 +27,12 @@ export const UserProvider = ({ children }) => {
     setUser(userData);
   };
 
-  return(
-    <UserContex.Provider value={{login,user,setUser}}>
-        {children}
+  return (
+    <UserContex.Provider value={{ login, user, setUser }}>
+      {children}
     </UserContex.Provider>
-  )
+  );
 };
-
-
 
 export const useUser = () => {
   return useContext(UserContex);

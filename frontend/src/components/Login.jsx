@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardAction,
@@ -22,8 +22,11 @@ const Registar = () => {
     password: "",
   });
 
-  const UserInfo = useUser();
-  console.log("UserInfo",UserInfo)
+  const {user, login} = useUser();
+  useEffect(()=>{
+    if (user) navigate('/')
+  },[user ,])
+  
 
   const [loading, setLoading] = useState(false);
 
@@ -44,10 +47,11 @@ const Registar = () => {
 
     try {
       const { data } = await axios.post("/api/user/loginUser", formData);
-      toast.success("success register");
+      toast.success("Login successful");
       console.log(data);
       setLoading(false);
-      // navigate("/")
+      login(data,data.expiresIn)
+      navigate("/")
     } catch (e) {
       setLoading(false);
       toast.error(e.response.data);

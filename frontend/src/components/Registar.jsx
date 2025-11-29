@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardAction,
@@ -14,6 +14,7 @@ import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useUser } from "@/hooks/useUser";
 
 const Registar = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,11 @@ const Registar = () => {
     email: "",
     password: "",
   });
+
+  const { user } = useUser();
+  useEffect(() => {
+    if (user)  navigate("/");
+  },[user]);
 
   const [loading, setLoading] = useState(false);
 
@@ -44,7 +50,7 @@ const Registar = () => {
       toast.success("success register");
       console.log(data);
       setLoading(false);
-      navigate("/LoginPage")
+      navigate("/LoginPage");
     } catch (e) {
       setLoading(false);
       toast.error(e.response.data);
