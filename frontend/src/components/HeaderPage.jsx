@@ -17,6 +17,7 @@ const HeaderPage = () => {
             <>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/Dashboard">Dashboard</Link></li>
+              <li><span className="text-lg font-bold text-green-500">Welcome {user?.username}</span></li>
               <button onClick={()=>logout()}>Logout</button>
             </>
             :
