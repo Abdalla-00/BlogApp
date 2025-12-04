@@ -1,5 +1,5 @@
 import { JWT_SECRET } from "../config/config.js";
-import user from "../models/User.js";
+import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
@@ -40,7 +40,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try { 
     const { email, password } = req.body;
-    const isUserExist = await user
+    const isUserExist = await User
       .findOne({
         email: email.toLowerCase(),
       })

@@ -23,14 +23,14 @@ const Registar = () => {
     password: "",
   });
 
-  const { user } = useUser();
-  useEffect(() => {
-    if (user)  navigate("/");
-  },[user]);
-
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+
+  const { user } = useUser();
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user]);
 
   const handleInputChange = (event) => {
     console.log(event);
@@ -50,7 +50,7 @@ const Registar = () => {
       toast.success("success register");
       console.log(data);
       setLoading(false);
-      navigate("/LoginPage");
+      navigate("/");
     } catch (e) {
       setLoading(false);
       toast.error(e.response.data);
