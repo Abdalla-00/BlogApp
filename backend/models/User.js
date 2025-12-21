@@ -54,7 +54,7 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.comparePassword = async function (givenPassword) {
   return await bcrypt.compare(givenPassword, this.password);
 };
- 
+
 // end middleware
 
 // export
