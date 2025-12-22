@@ -1,17 +1,19 @@
 import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "../config/config.js";
 
 export const authenticate = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) return res.status(403).send("Access denied please login");
+
   try {
-    const token = req.cookies.token;
-
-    if(!token){
-      res.status(400).send("No token found")
-    }
-    console.log("token ", token);
-
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
     
+    console.log("decoded", decoded);
+    next();
   } catch (error) {
     console.log("error at auth ", error);
-    return res.status(403).send("Access denied please login");
+    return res.status(403).send("");
   }
 };
