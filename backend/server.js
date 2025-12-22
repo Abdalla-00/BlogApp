@@ -11,6 +11,7 @@ const PORT = 4545;
 app.use(express.json());
 app.use(cookieParser());
 
+
 // app.post("/api/register-User", registerUser);
 app.use("/api/user", userRouter);
 app.use("/api/Post", postRoute);
